@@ -20,7 +20,7 @@ const { marked } = require('marked');
 export class ClassHelper {
     private jsdocParserUtil = new JsdocParserUtil();
 
-    constructor(private typeChecker: ts.TypeChecker) {}
+    constructor(private typeChecker: ts.TypeChecker) { }
 
     /**
      * HELPERS
@@ -112,9 +112,8 @@ export class ClassHelper {
                     if (_result.data.type === 'class') {
                         path = 'classe';
                     }
-                    return `${argu.name}${this.getOptionalString(arg)}: <a href="../${path}s/${
-                        _result.data.name
-                    }.html">${argu.type}</a>`;
+                    return `${argu.name}${this.getOptionalString(arg)}: <a href="../${path}s/${_result.data.name
+                        }.html">${argu.type}</a>`;
                 } else {
                     let path = AngularVersionUtil.getApiLink(
                         _result.data,
@@ -160,9 +159,8 @@ export class ClassHelper {
                         if (_result.data.type === 'class') {
                             path = 'classe';
                         }
-                        return `${arg.name}${this.getOptionalString(arg)}: <a href="../${path}s/${
-                            _result.data.name
-                        }.html">${arg.type}</a>`;
+                        return `${arg.name}${this.getOptionalString(arg)}: <a href="../${path}s/${_result.data.name
+                            }.html">${arg.type}</a>`;
                     } else {
                         let path = AngularVersionUtil.getApiLink(
                             _result.data,
@@ -455,7 +453,8 @@ export class ClassHelper {
     private isModuleDecorator(decorator) {
         return decorator.expression.expression
             ? decorator.expression.expression.text === 'NgModule' ||
-                  decorator.expression.expression.text === 'Module'
+            decorator.expression.expression.text === 'Module' ||
+            decorator.expression.expression.text === 'NFModule'
             : false;
     }
 
@@ -1280,7 +1279,7 @@ export class ClassHelper {
                             const returnType = signature.getReturnType();
                             result.returnType = this.typeChecker.typeToString(returnType);
                             // tslint:disable-next-line:no-empty
-                        } catch (error) {}
+                        } catch (error) { }
                     }
                 }
             }
@@ -1510,8 +1509,8 @@ export class ClassHelper {
         _return.argsDecorator =
             inArgs.length > 1
                 ? inArgs[1].elements.map(prop => {
-                      return prop.text;
-                  })
+                    return prop.text;
+                })
                 : [];
         _return.deprecated = false;
         _return.deprecationMessage = '';
